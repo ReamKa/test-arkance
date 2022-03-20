@@ -1,1 +1,4 @@
-+--AF_dÈ???ç?
+
++--AF_dï¿½???ï¿½?
+
+//quand je ne mets pas de \n dans la methode stockage

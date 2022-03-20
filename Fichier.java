@@ -6,6 +6,7 @@ import java.io.*;
 public class Fichier {
     private Scanner file;
     private ArrayList<Integer> integers = new ArrayList<Integer>();
+    Integer[] array;
     private int chiffre;
 
     // Constructeur
@@ -21,6 +22,7 @@ public class Fichier {
             chiffre = file.nextInt();
             // on ajoute la valeur dans notre ArrayList
             integers.add(chiffre);
+            array = integers.toArray(new Integer[0]);
         }
     }
 
@@ -66,7 +68,7 @@ public class Fichier {
         }
     }
 
-    // affichage test pour tester que nos valeurs sont bien entrées
+    // affichage des valeurs à l'utilisateur
     public void affichageFichier() {
         for (Integer marks : integers) {
             System.out.println(marks);
@@ -74,15 +76,59 @@ public class Fichier {
     }
 
     public void sorting(String str) throws IOException {
+        lectureFichier();
         if (str.equals("croissant")) {
             stockageCroissant();
-            affichageFichier();
         } else if (str.equals("decroissant") || str.equals("décroissant")) { // c'est interessant, il ne reconnait pas
                                                                              // l'accent
             stockageDecroissant();
-            affichageFichier();
         } else {
             System.out.println("Il faut choisir entre un ordre croissant ou decroissant!");
+        }
+        affichageFichier();
+    }
+
+    // sort en utilisant un algorithme (insertion sort)
+    public void sortAlgoCroissant() throws IOException {
+        try (FileWriter output = new FileWriter("output.txt")) {
+            lectureFichier();
+            int temp;
+            for (int i = 1; i < array.length; i++) {
+                for (int j = i; j > 0; j--) {
+                    if (array[j] < array[j - 1]) {
+                        temp = array[j];
+                        array[j] = array[j - 1];
+                        array[j - 1] = temp;
+                    }
+                }
+                output.write(array[i] + " \n");
+            }
+        }
+        System.out.println("Voici la liste apres le tri croissant:");
+        for (Integer marks : array) {
+            System.out.println(marks);
+        }
+    }
+
+    // sort en utilisant l'insertion sort
+    public void sortAlgoDecroissant() throws IOException {
+        try (FileWriter output = new FileWriter("output.txt")) {
+            lectureFichier();
+            int temp;
+            for (int i = 1; i < array.length; i++) {
+                for (int j = i; j > 0; j--) {
+                    if (array[j] > array[j - 1]) {
+                        temp = array[j];
+                        array[j] = array[j - 1];
+                        array[j - 1] = temp;
+                    }
+                }
+                output.write(array[i] + " \n");
+            }
+        }
+        System.out.println("Voici la liste apres le tri decroissant:");
+        for (Integer marks : array) {
+            System.out.println(marks);
         }
     }
 

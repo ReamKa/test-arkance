@@ -14,10 +14,13 @@ public class Main {
 
         try (Scanner scanner = new Scanner(Paths.get(input + ".txt"))) {
             Fichier fichier = new Fichier(scanner);
-            fichier.lectureFichier();
             System.out.println("Voulez-vous que votre liste soit triee selon l'odre [croissant] ou [decroissant]");
             String reponse = scan.nextLine().toLowerCase();
             fichier.sorting(reponse);
+
+            // decommentez pour tester l'insertion sort
+            // fichier.sortAlgoDecroissant();
+            // fichier.sortAlgoCroissant();
         } catch (Exception e) {
             System.out.println("Promis, le mot magique c'est \"input\". Reessayez.");
         }
